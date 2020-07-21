@@ -3,20 +3,30 @@ syntax = "proto3";
 package greet;
 option go_package = "greet/greetpb";
 
-message Greet{
+message Greeting{
     string first_name =1;
     string last_name = 2;
 }
 
 message GreetRequest{
-    Greet greet = 1;
+    Greeting greeting = 1;
 }
 
 message GreetResponse{
     string result = 1;
 }
 
+message GreetManyTimesRequest{
+    Greeting greeting = 1;
+}
+
+message GreetManyTimesResponse{
+    string result = 1;
+}
+
 service GreetService{
     // Unary
     rpc greet(GreetRequest) returns (GreetResponse);
+    // Server Streaming
+    rpc GreetManyTimes(GreetManyTimesRequest) returns (stream GreetManyTimesResponse);
 }
