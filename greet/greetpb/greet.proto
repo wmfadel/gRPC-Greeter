@@ -5,7 +5,6 @@ option go_package = "greet/greetpb";
 
 message Greeting{
     string first_name =1;
-    string last_name = 2;
 }
 
 message GreetRequest{
@@ -32,6 +31,14 @@ message LongGreetResponse{
     string result = 1;
 }
 
+message GreetEveryoneRequest{
+    Greeting greeting = 1;
+}
+
+message GreetEveryoneRespone{
+    string result = 1;
+}
+
 service GreetService{
     // Unary
     rpc greet(GreetRequest) returns (GreetResponse);
@@ -39,4 +46,6 @@ service GreetService{
     rpc GreetManyTimes(GreetManyTimesRequest) returns (stream GreetManyTimesResponse);
     // Client Streaming
     rpc LongGreet(stream LongGreetRequest) returns (LongGreetResponse);
+    // BI-DI Streaming
+    rpc GreetEveryone(stream GreetEveryoneRequest) returns (stream GreetEveryoneRespone);
 }
